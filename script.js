@@ -102,6 +102,11 @@ recognition.onresult = function (event) {
     inputButton.classList.add('btn-primary');
 
     var rawResult = event.results[0][0].transcript;
+
+
+
+    //    if (rawResult.includes())
+
     var r = bcv.parse(rawResult);
     if (r.entities.length === 0) {
         diagnostic.textContent = `Invalid input. Please try again. This is what the browser recognized: ${rawResult}`;
@@ -120,12 +125,26 @@ recognition.onresult = function (event) {
     book = r.passage.books[0].value;
     var bookNumber = books.findIndex(item => book.toLowerCase() === item.toLowerCase());
     var chapter = r.entities[0].passages[0].start.c;
+    var verse = undefined;
+    // Detect if there is a number over 100 and not in the book of Psalms. If so then take the first digit and make it the chapter. So Matthew 633 would be Matthew 6:33.
+    if (chapter > 100 && bookNumber !== 18) {
+        var tempVerse = parseInt(chapter.toString().substring(1, chapter.length));
+        verse = tempVerse;
+
+        var tempChapter = parseInt(chapter.toString().substring(0, 1));
+        chapter = tempChapter;
+        
+    }
+
     var paddedChapter = chapter.toString().padStart(3, "0");
 
-    var verse = undefined;
-    if (verse = r.entities[0].passages[0].start.v !== undefined) {
-        verse = r.entities[0].passages[0].start.v;
-        var paddedVerse = verse.toString().padStart(3, "0");
+    if (r.entities[0].passages[0].start.v !== undefined || verse !== undefined) {
+        if (verse === undefined)
+        {
+            verse = r.entities[0].passages[0].start.v; 
+        }
+        
+        // var paddedVerse = verse.toString().padStart(3, "0");
         link.textContent = `View scripture on JW website : ${books[bookNumber]} ${chapter}:${verse}`;
         // Main site.
         //link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}#v${bookNumber + 1}${paddedChapter}${paddedVerse}`;
