@@ -91,11 +91,11 @@ inputButton.onclick = function () {
     console.log('Ready to receive voice input.');
 }
 
-recognition.onaudioend = function() {
+recognition.onaudioend = function () {
     inputButton.classList.remove('btn-danger');
     inputButton.classList.add('btn-primary');
     console.log('Audio capturing ended');
-  }
+}
 
 recognition.onresult = function (event) {
     inputButton.classList.remove('btn-danger');
@@ -127,14 +127,20 @@ recognition.onresult = function (event) {
         verse = r.entities[0].passages[0].start.v;
         var paddedVerse = verse.toString().padStart(3, "0");
         link.textContent = `View scripture on JW website : ${books[bookNumber]} ${chapter}:${verse}`;
-        link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}#v${bookNumber + 1}${paddedChapter}${paddedVerse}`;
+        // Main site.
+        //link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}#v${bookNumber + 1}${paddedChapter}${paddedVerse}`;
+        // Watchtower Online
+        link.href = `https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/${bookNumber + 1}/${chapter}#study=discover&v=${bookNumber + 1}:${chapter}:${verse}`;
         link.target = "_blank";
-        
+
         window.open(link.href, '_blank');
     }
     else {
         link.textContent = `View scripture on JW website : ${books[bookNumber]} ${chapter}`;
-        link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}`;
+        // Main site.
+        //link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}`;
+        // Watchtower Online
+        link.href = `https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/${bookNumber + 1}/${chapter}`;
         link.target = "_blank";
 
         window.open(link.href, '_blank');
@@ -145,3 +151,4 @@ recognition.onresult = function (event) {
         //v 1 001 001
         //https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/1/1#s=29&study=discover&v=1:1:26
         //https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/40/6#study=discover&v=40:6:33
+        //https://www.jw.org/finder?wtlocale=E&pub=nwtsty&srctype=wol&bible=40006013&srcid=share
