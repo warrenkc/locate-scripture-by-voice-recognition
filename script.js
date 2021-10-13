@@ -153,7 +153,7 @@ recognition.onresult = function (event) {
         // Main site.
         //link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}#v${bookNumber + 1}${paddedChapter}${paddedVerse}`;
         // Watchtower Online
-        link.href = `https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/${bookNumber + 1}/${chapter}#study=discover&v=${bookNumber + 1}:${chapter}:${verse}`;
+        link.href = `https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/${bookNumber + 1}/${chapter}#s=${verse}&study=discover&v=${bookNumber + 1}:${chapter}:${verse}`;
         link.target = "_blank";
         window.open(link.href, '_blank');
     }
