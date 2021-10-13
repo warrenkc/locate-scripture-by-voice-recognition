@@ -91,6 +91,12 @@ inputButton.onclick = function () {
     console.log('Ready to receive voice input.');
 }
 
+recognition.onaudioend = function() {
+    inputButton.classList.remove('btn-danger');
+    inputButton.classList.add('btn-primary');
+    console.log('Audio capturing ended');
+  }
+
 recognition.onresult = function (event) {
     inputButton.classList.remove('btn-danger');
     inputButton.classList.add('btn-primary');
@@ -123,19 +129,16 @@ recognition.onresult = function (event) {
         link.textContent = `View scripture on JW website : ${books[bookNumber]} ${chapter}:${verse}`;
         link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}#v${bookNumber + 1}${paddedChapter}${paddedVerse}`;
         link.target = "_blank";
+        
+        window.open(link.href, '_blank');
     }
     else {
         link.textContent = `View scripture on JW website : ${books[bookNumber]} ${chapter}`;
         link.href = `https://www.jw.org/en/library/bible/nwt/books/${book}/${chapter}`;
         link.target = "_blank";
 
+        window.open(link.href, '_blank');
     }
-
-
-
-
-
-
 
 }
         // book number, chapter number, verse number.
