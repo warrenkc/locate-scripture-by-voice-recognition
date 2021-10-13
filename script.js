@@ -132,7 +132,6 @@ recognition.onresult = function (event) {
         // Watchtower Online
         link.href = `https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/${bookNumber + 1}/${chapter}#study=discover&v=${bookNumber + 1}:${chapter}:${verse}`;
         link.target = "_blank";
-
         window.open(link.href, '_blank');
     }
     else {
@@ -142,10 +141,9 @@ recognition.onresult = function (event) {
         // Watchtower Online
         link.href = `https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/${bookNumber + 1}/${chapter}`;
         link.target = "_blank";
-
         window.open(link.href, '_blank');
     }
-
+    diagnostic.textContent = `This is what the browser recognized: ${rawResult}`;
 }
         // book number, chapter number, verse number.
         //v 1 001 001
