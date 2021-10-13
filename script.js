@@ -99,23 +99,28 @@ recognition.onaudioend = function () {
 
 recognition.onresult = function (event) {
     inputButton.classList.remove('btn-danger');
-    inputButton.classList.add('btn-primary');
-
+    inputButton.classList.add('btn-primary');    
     var rawResult = event.results[0][0].transcript;
+    var tempResult =rawResult;
+    // Replace cardinal numbers.
+    rawResult = rawResult.replace("1st", "1");
+    rawResult = rawResult.replace("First", "1");
+    rawResult = rawResult.replace("2nd", "2");
+    rawResult = rawResult.replace("Second", "2");
+    rawResult = rawResult.replace("3rd", "3");
+    rawResult = rawResult.replace("Third", "2");
 
 
-
-    //    if (rawResult.includes())
 
     var r = bcv.parse(rawResult);
     if (r.entities.length === 0) {
-        diagnostic.textContent = `Invalid input. Please try again. This is what the browser recognized: ${rawResult}`;
+        diagnostic.textContent = `Invalid input. Please try again. This is what the browser recognized: ${tempResult}`;
         link.href = "";
         link.textContent = "";
         return;
     }
     if (r.entities[0].passages[0].start.c === undefined) {
-        diagnostic.textContent = `Invalid input. Please try again. This is what the browser recognized: ${rawResult}`;
+        diagnostic.textContent = `Invalid input. Please try again. This is what the browser recognized: ${tempResult}`;
         link.href = "";
         link.textContent = "";
         return;
@@ -132,8 +137,7 @@ recognition.onresult = function (event) {
         verse = tempVerse;
 
         var tempChapter = parseInt(chapter.toString().substring(0, 1));
-        chapter = tempChapter;
-        
+        chapter = tempChapter;       
     }
 
     var paddedChapter = chapter.toString().padStart(3, "0");
@@ -162,7 +166,7 @@ recognition.onresult = function (event) {
         link.target = "_blank";
         window.open(link.href, '_blank');
     }
-    diagnostic.textContent = `This is what the browser recognized: ${rawResult}`;
+    diagnostic.textContent = `This is what the browser recognized: ${tempResult}`;
 }
         // book number, chapter number, verse number.
         //v 1 001 001
