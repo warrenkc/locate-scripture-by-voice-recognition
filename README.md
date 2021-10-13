@@ -1,1 +1,1 @@
-# locate-scripture-by-voice-recognition
+Use your voice to locate a scripture in the Bible quickly.
